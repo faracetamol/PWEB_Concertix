@@ -2,68 +2,102 @@
 <html>
 
 <head>
-<title>Dashboard Seller - Concertix</title>
+    <title>Concertix - Dashboard Penjual</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body bgcolor="white">
+<body>
 
-<header>
-
-<table width="100%" bgcolor="white">
-<tr>
-<td align="center">
-
-<img src="logo.png" width="70">
-
-<h1><font color="black">Concertix</font></h1>
-<p><font color="black">Dashboard Seller</font></p>
-
-</td>
-</tr>
-</table>
-
-</header>
-
-<br>
-
-<nav align="right">
-
-<b>
-<a href="#">Dashboard</a> |
-<a href="#">Event Saya</a> |
-<a href="#">Tambah Event</a> |
-<a href="#">Transaksi</a> |
-<a href="#">Profil</a>
-</b>
-
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+    <img src="logo.png" width="120">
+     <br>
+    <div class="menu">
+        <a href="#">Dashboard</a>
+        <a href="#">Event Saya</a>
+        <a href="#">Tambah Event</a>
+        <a href="#">Transaksi</a>
+        <a href="#">Profil</a>
+    </div>
 </nav>
 
-<br>
+<!-- HEADER -->
+<header class="header">
+    <h1>Dashboard </h1>
+    <p>Kelola event dan pantau penjualan tiket Anda</p>
+</header>
 
+<div class="hero">
+    <div>
+        <h2>Selamat Datang, Penyelenggara!</h2>
+        <p>Kelola event dan pantau penjualan tiket Anda di Concertix.</p>
+    </div>
+</div>
 
-<left>
-<h2>Selamat Datang, Promotor!</h2>
-<p>Kelola event dan pantau penjualan tiket Anda di Concertix.</p>
-</left>
+<!-- MAIN -->
+<main class="main">
 
-<br>
+<!-- SECTION (TABEL EVENT) -->
+<section class="content">
+<h3>Cari Event</h3>
 
-<main>
+<input type="text" placeholder="Cari event...">
+<button>Cari</button>
+<br><br>
 
-<table width="100%">
+<h3>Preview Event</h3>
 
+<div class="container">
+
+   <div class="container">
+
+    <div class="card">
+        <img src="indie.png">
+        <div class="card-body">
+            <h4>INDIE NIGHT</h4>
+            <p class="tanggal">15 Juli 2026</p>
+            <p class="lokasi">Bandung</p>
+            <p class="harga">Mulai dari Rp 300.000</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="rocknation.png">
+        <div class="card-body">
+            <h4>ROCK NATION</h4>
+            <p class="tanggal">20 Juli 2026</p>
+            <p class="lokasi">Surabaya</p>
+            <p class="harga">Mulai dari Rp 400.000</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="JAZZFEST.png">
+        <div class="card-body">
+            <h4>JAZZ FEST</h4>
+            <p class="tanggal">10 Juli 2026</p>
+            <p class="lokasi">Jakarta</p>
+            <p class="harga">Mulai dari Rp 250.000</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="POPARTY.png">
+        <div class="card-body">
+            <h4>POP PARTY</h4>
+            <p class="tanggal">25 Juli 2026</p>
+            <p class="lokasi">Bali</p>
+            <p class="harga">Mulai dari Rp 500.000</p>
+        </div>
+    </div>
+
+</div>
+
+<h3>Event Saya</h3>
+
+<table>
 <tr>
-
-
-<td width="70%" valign="top">
-
-<section>
-
-<h3 align="center">Event Saya</h3>
-
-<table border="1" cellpadding="10" align="center" width="90%">
-
-<tr bgcolor="lightgray">
 <th>ID</th>
 <th>Nama Event</th>
 <th>Lokasi</th>
@@ -95,62 +129,71 @@
 
 </table>
 
+<br>
+
+<!-- FORM TAMBAH EVENT -->
+<h3>Tambah Event</h3>
+
+<input type="text" placeholder="Nama Event">
+<input type="text" placeholder="Lokasi">
+<input type="date">
+<input type="number" placeholder="Masukkan jumlah tiket">
+<input type="text" id="harga" placeholder="Harga Tiket">
+<button>Tambah Event</button>
+
 </section>
 
-</td>
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-<td width="30%" valign="top">
+<h3>Statistik Penjualan</h3>
 
-<aside>
-
-<table border="1" cellpadding="10" width="90%" align="center">
-
-<tr bgcolor="white">
-<th><font color="black">Statistik Penjualan</font></th>
-</tr>
-
-<tr>
-<td>
-
-Total Event : 2 <br><br>
-Total Tiket Terjual : 520 <br><br>
-Pendapatan : Rp120.000.000 <br><br>
-Event Terdekat : Indie Night
-
-</td>
-</tr>
-
-</table>
-
-</aside>
-
-</td>
-
-</tr>
-
-</table>
-
-</main>
+<ul>
+<li>Total Event : 2</li>
+<li>Total Tiket Terjual : 520</li>
+<li>Pendapatan : Rp120.000.000</li>
+<li>Event Terdekat : Indie Night</li>
+</ul>
 
 <br>
 
-<footer>
+<!-- FILTER -->
+<h3>Filter Event</h3>
 
-<table width="100%" bgcolor="white">
+<input type="checkbox"> Konser <br>
+<input type="checkbox"> Festival <br>
+<input type="checkbox"> Musik <br>
 
-<tr>
-<td align="center">
+</aside>
 
-<font color="black">
-<b>© 2026 Concertix </b>
-</font>
+</main>
 
-</td>
-</tr>
-
-</table>
-
+<!-- FOOTER -->
+<footer class="footer">
+<div>About</div>
+<div>Contact</div>
+<div>Social Media</div>
 </footer>
+
+<script>
+const inputHarga = document.getElementById("harga");
+
+inputHarga.addEventListener("keyup", function(e) {
+    let value = this.value.replace(/[^,\d]/g, "").toString();
+    let split = value.split(",");
+    let sisa = split[0].length % 3;
+    let rupiah = split[0].substr(0, sisa);
+    let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    this.value = value ? "Rp " + rupiah : "";
+});
+</script>
 
 </body>
 </html>

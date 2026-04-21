@@ -1,26 +1,11 @@
 /* RESET */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial;
-}
-
-/* HEADER */
-.header {
-    background: darkblue;
-    color: white;
-    text-align: center;
-    padding: 15px;
-}
-
-/* NAVBAR */
-.navbar a {
-    color: darkblue;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 /* NAVBAR */
@@ -32,65 +17,46 @@ body {
     color: white;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 10px;
-    overflow-x: auto; 
+    overflow-x: auto;
 }
 
-/* MENU DESKTOP */
 .menu {
     display: flex;
-    flex-wrap: wrap; 
     gap: 15px;
 }
 
 .menu a {
     color: white;
     text-decoration: none;
-    white-space: nowrap; /
+    white-space: nowrap;
 }
 
-/* RESPONSIVE (HP) */
-@media (max-width: 600px) {
-    
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .menu {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .menu a {
-        padding: 10px;
-        border-top: 1px solid white;
-        width: 100%;
-    }
-}
-
-
+/* HEADER */
 .header {
-    margin-top: 50px;
-}
-
-.hero {
-    height: 200px;
-    background: linear-gradient(#5f5fff, #3f3fd1);
+    margin-top: 70px;
+    background: #0d47a1;
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-align: center;
+    padding: 15px;
 }
 
-/* MAIN LAYOUT */
+/* HERO */
+.hero {
+    background: linear-gradient(rgba(0,0,255,0.6), rgba(0,0,0,0.6));
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+/* MAIN */
 .main {
     display: grid;
     grid-template-columns: 1fr;
 }
 
-/* SECTION */
+/* CONTENT */
 .content {
     padding: 20px;
 }
@@ -98,7 +64,33 @@ body {
 /* SIDEBAR */
 .sidebar {
     padding: 20px;
-    border: 1px solid #0d47a1;
+    border: 1px solid #ccc;
+}
+
+/* CARD GRID */
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 10px;
 }
 
 /* TABLE */
@@ -107,18 +99,13 @@ table {
     border-collapse: collapse;
 }
 
-th {
-    background-color: darkblue;
-    color: white;
-} 
-
-td {
+th, td {
     padding: 10px;
     border: 1px solid #ccc;
 }
 
 tr:nth-child(even) {
-    background: #ffffff;
+    background: #f2f2f2;
 }
 
 /* FORM */
@@ -136,10 +123,12 @@ button {
     background: darkblue;
     color: white;
     border: none;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 button:hover {
-    background: blue;
+    transform: scale(1.1);
 }
 
 /* FOOTER */
@@ -151,21 +140,8 @@ button:hover {
     grid-template-columns: 1fr;
 }
 
-/* ANIMASI */
-table {
-    animation: fade 1s;
-}
-
-@keyframes fade {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-button {
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: scale(1.1);
+html {
+    scroll-behavior: smooth;
 }
 
 /* RESPONSIVE */
@@ -174,58 +150,17 @@ button:hover {
         grid-template-columns: 2fr 1fr;
     }
 
+    .container {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .footer {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
-/* CARD */
-.card {
-    border-radius: 10px;
-    overflow: hidden;
-    background: whitesmoke;
-    transition: 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* GAMBAR */
-.card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    transition: 0.3s;
-}
-
-/* BODY */
-.card-body {
-    padding: 10px;
-}
-
-/* TEXT */
-.card-body h4 {
-    margin: 5px 0;
-}
-
-.tanggal {
-    font-size: 12px;
-    color: gray;
-}
-
-.lokasi {
-    font-size: 13px;
-}
-
-.harga {
-    color: #0d47a1;
-    font-weight: bold;
-}
-
-/* HOVER */
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.card:hover img {
-    transform: scale(1.1);
+@media (min-width: 900px) {
+    .container {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }

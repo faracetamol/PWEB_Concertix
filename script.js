@@ -1,128 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Concertix - Dashboard Penjual</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="logo">
-        <img src="logo.png" width="120">
-    </div>
-
-    <div class="menu">
-        <a href="#dashboard">Dashboard</a>
-        <a href="#event">Event Saya</a>
-        <a href="#tambah">Tambah Event</a>
-        <a href="#transaksi">Transaksi</a>
-        <a href="#profil">Profil</a>
-    </div>
-</nav>
-
-<!-- HEADER -->
-<header id="dashboard" class="header">
-    <h1>Dashboard</h1>
-    <p>Kelola event dan pantau penjualan tiket Anda</p>
-</header>
-
-<div class="hero">
-    <h2>Selamat Datang, Penyelenggara!</h2>
-    <p>Kelola event dan pantau penjualan tiket Anda di Concertix.</p>
-</div>
-
-<!-- MAIN -->
-<main class="main">
-
-<!-- SECTION EVENT -->
-<section id="event" class="content">
-
-<h3>Cari Event</h3>
-<input type="text" id="search" placeholder="Cari event...">
-<button onclick="searchData()">Cari</button>
-
-<br><br>
-
-<h3>Preview Event</h3>
-<div class="container" id="cardContainer"></div>
-
-<h3>Event Saya</h3>
-
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Nama Event</th>
-<th>Lokasi</th>
-<th>Tanggal</th>
-<th>Harga</th>
-<th>Stok</th>
-<th>Aksi</th>
-</tr>
-</thead>
-<tbody id="dataTable"></tbody>
-</table>
-
-</section>
-
-<!-- SECTION TAMBAH -->
-<section id="tambah" class="content">
-
-<h3>Tambah / Edit Event</h3>
-
-<input type="text" id="nama" placeholder="Nama Event">
-<input type="text" id="lokasi" placeholder="Lokasi">
-<input type="date" id="tanggal">
-<input type="number" id="stok" placeholder="Jumlah tiket">
-<input type="text" id="harga" placeholder="Harga Tiket">
-
-<input type="file" id="gambar">
-<small>*Kosongkan jika tidak ingin ganti gambar</small><br><br>
-
-<button id="btnSubmit" onclick="tambahData()">Tambah Event</button>
-
-</section>
-
-<!-- SECTION TRANSAKSI -->
-<section id="transaksi" class="content">
-<h3>Transaksi</h3>
-<p>Belum ada transaksi.</p>
-</section>
-
-<!-- SECTION PROFIL -->
-<section id="profil" class="content">
-<h3>Profil</h3>
-<p>Nama Penyelenggara</p>
-</section>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-<h3>Statistik Penjualan</h3>
-<ul id="statistik"></ul>
-
-<br>
-
-<h3>Filter Event</h3>
-<input type="checkbox"> Konser <br>
-<input type="checkbox"> Festival <br>
-<input type="checkbox"> Musik <br>
-
-</aside>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="footer">
-<div>About</div>
-<div>Contact</div>
-<div>Social Media</div>
-</footer>
-
-<script>
-
 // ================= DATA =================
 let dataEvent = JSON.parse(localStorage.getItem("event")) || [
     {
@@ -160,6 +35,7 @@ function render(list = dataEvent){
 
     list.forEach((e,i)=>{
 
+        // TABLE
         table.innerHTML += `
         <tr>
             <td>${i+1}</td>
@@ -174,6 +50,7 @@ function render(list = dataEvent){
             </td>
         </tr>`;
 
+        // CARD
         card.innerHTML += `
         <div class="card">
             <img src="${e.gambar}" class="card-img">
@@ -189,7 +66,7 @@ function render(list = dataEvent){
     statistik();
 }
 
-// ================= TAMBAH & EDIT =================
+// ================= TAMBAH / EDIT =================
 function tambahData(){
     let nama = document.getElementById("nama").value;
     let lokasi = document.getElementById("lokasi").value;
@@ -199,10 +76,11 @@ function tambahData(){
     let file = document.getElementById("gambar").files[0];
 
     if(!nama || !lokasi || !tanggal || !stok || !harga){
-        alert("Isi semua field!");
+        alert("Isi semua kolom!");
         return;
     }
 
+    // 🔥 RESET FUNCTION
     function resetForm(){
         document.getElementById("nama").value = "";
         document.getElementById("lokasi").value = "";
@@ -215,15 +93,19 @@ function tambahData(){
         editIndex = -1;
     }
 
-    // EDIT
-    if(editIndex !== -1){
+    // ================= EDIT =================
+    if (editIndex !== -1) {
 
-        if(file){
+        if (file) {
             let reader = new FileReader();
 
             reader.onload = function(e){
                 dataEvent[editIndex] = {
-                    nama, lokasi, tanggal, stok, harga,
+                    nama,
+                    lokasi,
+                    tanggal,
+                    stok,
+                    harga,
                     gambar: e.target.result
                 };
 
@@ -235,9 +117,13 @@ function tambahData(){
 
             reader.readAsDataURL(file);
 
-        }else{
+        } else {
             dataEvent[editIndex] = {
-                nama, lokasi, tanggal, stok, harga,
+                nama,
+                lokasi,
+                tanggal,
+                stok,
+                harga,
                 gambar: dataEvent[editIndex].gambar
             };
 
@@ -250,31 +136,41 @@ function tambahData(){
         return;
     }
 
-    // TAMBAH
-    if(file){
+    // ================= TAMBAH =================
+    if (file) {
         let reader = new FileReader();
 
         reader.onload = function(e){
             dataEvent.push({
-                nama, lokasi, tanggal, stok, harga,
+                nama,
+                lokasi,
+                tanggal,
+                stok,
+                harga,
                 gambar: e.target.result
             });
 
             simpan();
             render();
+            alert("Event berhasil ditambahkan!");
             resetForm();
         };
 
         reader.readAsDataURL(file);
 
-    }else{
+    } else {
         dataEvent.push({
-            nama, lokasi, tanggal, stok, harga,
+            nama,
+            lokasi,
+            tanggal,
+            stok,
+            harga,
             gambar:"indie.png"
         });
 
         simpan();
         render();
+        alert("Event berhasil ditambahkan!");
         resetForm();
     }
 }
@@ -290,6 +186,7 @@ function edit(i){
     document.getElementById("harga").value = e.harga;
 
     editIndex = i;
+
     document.getElementById("btnSubmit").innerText = "Update Event";
 }
 
@@ -346,8 +243,3 @@ inputHarga.addEventListener("keyup", function() {
 
 // ================= INIT =================
 render();
-
-</script>
-
-</body>
-</html>

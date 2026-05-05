@@ -107,8 +107,14 @@ function filterTerdekat(){
 
 function statistik(){
     let total = dataEvent.length;
-    document.getElementById("statistik").innerHTML =
-        `<li>Total Event: ${total}</li>`;
+    let tiket = dataEvent.reduce((a,b)=>a + Number(b.stok),0);
+    let totalHarga = dataEvent.reduce((a,b)=>a + (b.harga * b.stok),0);
+
+    document.getElementById("statistik").innerHTML = `
+        <li>Total Event : ${total}</li>
+        <li>Total Tiket : ${tiket}</li>
+        <li>Total Nilai : Rp ${totalHarga.toLocaleString()}</li>
+    `;
 }
 
 render();

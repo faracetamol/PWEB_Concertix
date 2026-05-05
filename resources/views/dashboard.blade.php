@@ -1,27 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Concertix - Dashboard Penjual</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
+@extends('layouts.app')
 
-<body>
+@section('content')
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="logo">
-        <img src="{{ asset('images/logo.png') }}" alt="logo" height="120">
-    </div>
-
-    <div class="menu">
-        <a href="#dashboard">Dashboard</a>
-        <a href="#event">Event Saya</a>
-        <a href="#tambah">Tambah Event</a>
-        <a href="#transaksi">Transaksi</a>
-        <a href="#profil">Profil</a>
-        <a href="/tentang">Tentang</a>
-    </div>
-</nav>
 
 <!-- HEADER -->
 <header id="dashboard" class="header">
@@ -48,6 +28,25 @@
 
 <h3>Preview Event</h3>
 <div class="container" id="cardContainer"></div>
+<br>
+@php
+    $dataDummy = [
+        ['judul' => 'Jumlah Event', 'nilai' => '2'],
+        ['judul' => 'Total Tiket', 'nilai' => '700'],
+        ['judul' => 'Kategori', 'nilai' => 'Konser Musik'],
+    ];
+@endphp
+
+<div class="dummy-wrapper">
+    @forelse($dataDummy as $item)
+        <div class="dummy-card">
+            <h4>{{ $item['judul'] }}</h4>
+            <p>{{ $item['nilai'] }}</p>
+        </div>
+    @empty
+        <p>Data belum tersedia.</p>
+    @endforelse
+</div>
 
 <h3>Event Saya</h3>
 
@@ -141,13 +140,8 @@
 
 </main>
 
-<!-- FOOTER -->
-<footer class="footer">
-<div>About</div>
-<div>Contact</div>
-<div>Social Media</div>
-</footer>
 
+@push('scripts')
 <script>
 
 // ================= DATA =================
@@ -375,6 +369,6 @@ inputHarga.addEventListener("keyup", function() {
 render();
 
 </script>
+@endpush
 
-</body>
-</html>
+@endsection

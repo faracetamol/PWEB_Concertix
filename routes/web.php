@@ -7,6 +7,11 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/tentang', function () {
     return view('tentang');
 });
+
+Route::get('/kontak', function () {
+    return view('kontak');
+});
+
 Route::get('/hitung/{a}/{b}', function ($a, $b) {
     return $a + $b;
 });

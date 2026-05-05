@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tentang</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
 
 <h1>Tentang Kami</h1>
-<p>Ini adalah halaman tentang aplikasi Concertix.</p>
 
-</body>
-</html>
+<p>
+    Concertix adalah platform untuk membantu penyelenggara event dalam mengelola tiket dan acara.
+</p>
+
+@endsection

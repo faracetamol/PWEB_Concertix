@@ -40,7 +40,7 @@ class DashboardController extends Controller
             'gambar' => $namaFile
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Event berhasil ditambahkan!');
     }
 
     // UPDATE (INI YANG FIX BUG EDIT)

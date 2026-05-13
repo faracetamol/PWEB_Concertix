@@ -1,21 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/tentang', function () {
-    return view('tentang');
+Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+ 
+    Route::resource('events', EventController::class);
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
-Route::get('/kontak', function () {
-    return view('kontak');
-});
-
-Route::get('/hitung/{a}/{b}', function ($a, $b) {
-    return $a + $b;
-});
-
-Route::post('/tambah', [DashboardController::class, 'store']);
-Route::post('/update/{id}', [DashboardController::class, 'update']);
-Route::get('/hapus/{id}', [DashboardController::class, 'delete']);
+require __DIR__.'/auth.php';

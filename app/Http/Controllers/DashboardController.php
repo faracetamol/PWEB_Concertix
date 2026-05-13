@@ -20,6 +20,22 @@ class DashboardController extends Controller
     return view('dashboard', compact('events'));
 }
 
+   public function uploadProfil(Request $request)
+{
+    $request->validate([
+        'foto_profil' => 'required|image|mimes:jpg,png|max:2048'
+    ]);
+
+    $file = $request->file('foto_profil');
+    $namaFile = time() . '.' . $file->getClientOriginalExtension();
+
+    $file->move(public_path('images/profil'), $namaFile);
+
+    session(['foto_profil' => $namaFile]);
+
+    return redirect()->back()->with('success', 'Foto profil berhasil diupload!');
+}
+
     // TAMBAH
     public function store(Request $request){
 

@@ -26,6 +26,11 @@ body {
     font-weight: 500;
 }
 
+.user-name {
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
 
 .menu {
     display: flex;
@@ -111,6 +116,26 @@ body {
     margin: 30px 50px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border-left: 6px solid #00008b;
+}
+
+.profil-card form {
+    margin-top: 20px;
+}
+
+.profil-card button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #00008b;
+    color: white;
+    cursor: pointer;
+}
+
+.profil-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .profil-content {
@@ -223,6 +248,22 @@ button {
 
 button:hover {
     transform: scale(1.1);
+}
+
+.alert-success{
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    margin: 10px 20px;
+    border-radius: 8px;
+}
+
+.alert-error{
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    margin: 10px 20px;
+    border-radius: 8px;
 }
 
 /* FOOTER */

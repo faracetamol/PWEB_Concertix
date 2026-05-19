@@ -132,4 +132,13 @@ class EventController extends Controller
         ->with('success', 'Event berhasil dihapus!');
 }
 
+public function search(Request $request)
+{
+    $keyword = $request->keyword;
+
+    $events = Event::where('nama', 'like', "%{$keyword}%")->get();
+
+    return response()->json($events);
+}
+
 }

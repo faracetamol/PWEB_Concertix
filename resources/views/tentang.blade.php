@@ -1,11 +1,23 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tentang Concertix</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
 
-@section('content')
+@include('partials.navbar')
 
-<h1>Tentang Kami</h1>
+<section class="content">
+    <h1>Tentang Kami</h1>
+    <p>Concertix adalah platform untuk membantu penyelenggara mengelola event dan tiket.</p>
+</section>
 
-<p>
-    Concertix adalah platform untuk membantu penyelenggara event dalam mengelola tiket dan acara.
-</p>
+<footer class="footer">
+    <div>About</div>
+    <div>Contact</div>
+    <div>Social Media</div>
+</footer>
 
-@endsection
+</body>
+</html>

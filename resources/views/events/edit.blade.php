@@ -1,36 +1,76 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
 
-@section('content')
+<div class="content">
 
-<h1>Edit Event</h1>
+    <h2>Edit Event</h2>
 
-<form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+    <form action="{{ route('events.update', $event->id) }}"
+          method="POST"
+          enctype="multipart/form-data">
 
-    <input type="text" name="nama" placeholder="Nama Event" value="{{ old('nama', $event->nama) }}"><br>
-    @error('nama') <small>{{ $message }}</small><br> @enderror
+        @csrf
+        @method('PUT')
 
-    <input type="text" name="lokasi" placeholder="Lokasi" value="{{ old('lokasi', $event->lokasi) }}"><br>
-    @error('lokasi') <small>{{ $message }}</small><br> @enderror
+        <input
+            type="text"
+            name="nama"
+            value="{{ $event->nama }}"
+            placeholder="Nama Event">
 
-    <input type="date" name="tanggal" value="{{ old('tanggal', $event->tanggal->format('Y-m-d')) }}"><br>
-    @error('tanggal') <small>{{ $message }}</small><br> @enderror
+        <br><br>
 
-    <input type="number" name="stok" placeholder="Stok" value="{{ old('stok', $event->stok) }}"><br>
-    @error('stok') <small>{{ $message }}</small><br> @enderror
+        <input
+            type="text"
+            name="lokasi"
+            value="{{ $event->lokasi }}"
+            placeholder="Lokasi">
 
-    <input type="number" name="harga" placeholder="Harga" value="{{ old('harga', $event->harga) }}"><br>
-    @error('harga') <small>{{ $message }}</small><br> @enderror
+        <br><br>
 
-    @if($event->gambar)
-        <img src="{{ asset('images/' . $event->gambar) }}" width="120"><br>
-    @endif
+        <input
+            type="date"
+            name="tanggal"
+            value="{{ $event->tanggal->format('Y-m-d') }}">
 
-    <input type="file" name="gambar"><br>
-    @error('gambar') <small>{{ $message }}</small><br> @enderror
+        <br><br>
 
-    <button type="submit">Update</button>
-</form>
+        <input
+            type="number"
+            name="stok"
+            value="{{ $event->stok }}"
+            placeholder="Jumlah Tiket">
 
-@endsection
+        <br><br>
+
+        <input
+            type="number"
+            name="harga"
+            value="{{ $event->harga }}"
+            placeholder="Harga">
+
+        <br><br>
+
+        <input type="file" name="gambar">
+
+        <br><br>
+
+        <button type="submit">
+            Update Event
+        </button>
+
+        <a href="/" style="margin-left:10px;">
+            Kembali
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

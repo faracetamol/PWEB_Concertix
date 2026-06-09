@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,14 +7,14 @@ use App\Models\Kategori;
 class Event extends Model
 {
     protected $fillable = [
-        'nama',
-        'lokasi',
-        'tanggal',
-        'stok',
-        'harga',
-        'gambar',
-    ];
-
+    'nama',
+    'lokasi',
+    'tanggal',
+    'stok',
+    'harga',
+    'gambar',
+    'user_id',
+];
     protected $casts = [
         'tanggal' => 'date',
         'stok' => 'integer',

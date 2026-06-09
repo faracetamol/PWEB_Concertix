@@ -60,6 +60,15 @@ body {
     white-space: nowrap;
 }
 
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
 /* HEADER */
 .header {
     background:#0a1f8f;
@@ -83,17 +92,16 @@ body {
     padding: 40px;
 }
 
+/* =========================
+   DARK MODE
+========================= */
 .dark-mode {
     background: #111827 !important;
     color: white !important;
 }
 
-.dark-mode .navbar,
-.dark-mode .header,
-.dark-mode .hero,
 .dark-mode .content,
 .dark-mode .sidebar,
-.dark-mode .footer,
 .dark-mode .card,
 .dark-mode .event-card,
 .dark-mode .cuaca-card,
@@ -110,54 +118,146 @@ body {
     color: #d1d5db;
 }
 
-.btn-dark {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
+.dark-mode .sidebar-card{
+    background:#1f2937 !important;
+    color:white !important;
 }
 
-/* MAIN */
-.main {
-    display: grid;
-    grid-template-columns: 1fr;
+.dark-mode .sidebar-card h3{
+    color:white !important;
 }
 
-/* CONTENT */
-.content {
-    padding: 20px;
+.dark-mode .sidebar-card li{
+    color:white !important;
 }
 
-/* SIDEBAR */
-.sidebar {
-    padding: 20px;
-    border: 1px solid #ccc;
+.dark-mode .sidebar-card ul{
+    color:white !important;
 }
 
-/* CARD GRID */
-.container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px;
+.btn-dark,
+.btn-logout{
+    background:white;
+    color:#0000aa;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
 }
 
-.card {
-    border-radius: 10px;
-    overflow: hidden;
+.btn-dark:hover,
+.btn-logout:hover{
+    background:#f1f1f1;
 }
 
-.card-img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
+.btn-kembali{
+    display:inline-block;
+    background:#0a1f8f;
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:8px;
+
+    margin-top:20px;
+    margin-left:20px;
+    margin-bottom:20px;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.btn-kembali:hover{
+    background:#08176b;
 }
 
-.card-body {
-    padding: 10px;
+.dark-mode .preferensi-card{
+    background:#1f2937;
+    color:white;
+}
+
+.dark-mode .preferensi-card h2{
+    color:white;
+}
+
+.dark-mode .form-group select{
+    background:#374151;
+    color:white;
+    border-color:#4b5563;
+}
+
+/* =========================
+   DASHBOARD LAYOUT
+========================= */
+
+.main-layout{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:25px;
+}
+
+.event-section{
+    flex:1;
+}
+
+.sidebar{
+    width:280px;
+    flex-shrink:0;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.sidebar-card h3{
+    color:#0a1f8f;
+    margin-top:0;
+}
+
+.sidebar-card label{
+    display:block;
+    margin-bottom:12px;
+}
+
+.sidebar-card ul{
+    padding-left:20px;
+}
+
+/* =========================
+   EVENT CARD
+========================= */
+.container{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card-img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+}
+
+.card-body{
+    padding:15px;
 }
 
 .profil-card {
@@ -216,14 +316,26 @@ body {
 .profil-info p {
     margin: 0;
 }
-
-.alert-success {
-    background: #d4edda;
-    color: #155724;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 6px;
+.profil-info input{
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
+
+.profil-info button{
+    background: #0000aa;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profil-info button:hover{
+    background: #000088;
+}
+
 
 .stat-card {
     background: white;
@@ -278,11 +390,66 @@ tr:nth-child(even) {
     background: #f2f2f2;
 }
 
+/* =========================
+   PREFERENSI
+========================= */
+.preferensi-card{
+    max-width:600px;
+    margin:30px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.preferensi-card h2{
+    text-align:center;
+    color:#0a1f8f;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.btn-simpan{
+    width:100%;
+    background:#0a1f8f;
+    color:white;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-simpan:hover{
+    background:#08176b;
+}
+
+
 /* FORM */
-input, button {
-    padding: 10px;
-    margin: 5px 0;
-    width: 100%;
+input{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+}
+
+button{
+    padding:10px 20px;
+    margin:5px 0;
 }
 
 input:focus {
@@ -297,8 +464,8 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    transform: scale(1.1);
+button:hover{
+    opacity:.9;
 }
 
 .alert-success{
@@ -316,14 +483,23 @@ button:hover {
     margin: 10px 20px;
     border-radius: 8px;
 }
+.btn-primary{
+    background:#0000aa;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+}
 
 /* FOOTER */
-.footer {
+.footer{
     background: darkblue;
     color: white;
     padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 html {
@@ -341,23 +517,80 @@ html {
     margin: 4px 0;
 }
 
-/* RESPONSIVE */
-@media (min-width: 600px) {
-    .main {
-        grid-template-columns: 2fr 1fr;
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width:768px){
+
+    .navbar{
+        flex-direction:column;
+        padding:15px;
+        gap:10px;
+        flex-wrap:wrap;
     }
 
-    .container {
-        grid-template-columns: 1fr 1fr;
+    .menu-toggle{
+        display:block;
     }
 
-    .footer {
-        grid-template-columns: 1fr 1fr 1fr;
+    .menu{
+        display:none;
+        flex-direction:column;
+        width:100%;
+        text-align:center;
+        gap:10px;
     }
-}
 
-@media (min-width: 900px) {
-    .container {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+    .menu.active{
+        display:flex;
+    }
+
+    .main-layout{
+        flex-direction:column;
+    }
+
+    .event-section{
+        width:100%;
+    }
+
+    .sidebar{
+        width:100%;
+        margin-top:20px;
+    }
+
+/* =========================
+   PROFIL
+========================= */
+    .profil-content{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .profil-card{
+        margin:15px;
+    }
+
+    .profil-info input{
+        width:100%;
+    }
+
+    .container{
+        width:100%;
+    }
+
+    .card{
+        width:100%;
+    }
+
+    .card-img{
+        height:auto;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
     }
 }

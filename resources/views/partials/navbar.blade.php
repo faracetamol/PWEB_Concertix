@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
     </div>
 
     <div class="menu">
-    <a href="#dashboard">Dashboard</a>
-    <a href="#event">Event Saya</a>
-    <a href="#tambah">Tambah Event</a>
-    <a href="#transaksi">Transaksi</a>
-    <a href="#profil">Profil</a>
+    <a href="{{ url('/') }}">Dashboard</a>
+    <a href="{{ route('admin.events') }}">Event Saya</a>
+    <a href="{{ route('events.create') }}">Tambah Event</a>
+    <a href="{{ route('admin.transaksi') }}">Transaksi</a>
+    <a href="{{ route('admin.profil') }}">Profil</a>
     <a href="/tentang">Tentang</a>
 
     @auth

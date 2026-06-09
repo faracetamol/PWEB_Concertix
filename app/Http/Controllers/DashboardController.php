@@ -4,11 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Ticket;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
 {
+    // SESSION KUNJUNGAN
+    $jumlah = session('jumlah_kunjungan', 0);
+    $jumlah++;
+
+    if (!session()->has('kunjungan_pertama')) {
+        session([
+            'kunjungan_pertama' => now()->format('d M Y H:i:s')
+        ]);
+    }
+
+    session([
+        'jumlah_kunjungan' => $jumlah,
+        'kunjungan_terakhir' => now()->format('d M Y H:i:s')
+    ]);
+
+    // QUERY EVENT
     $query = Event::query();
 
     if ($request->filter == 'terdekat') {
@@ -17,23 +34,43 @@ class DashboardController extends Controller
 
     $events = $query->get();
 
-    return view('dashboard', compact('events'));
+    // TRANSAKSI
+    $transaksi = Ticket::with(['user', 'event'])->get();
+
+    // STATISTIK
+    $totalEvent = Event::count();
+    $totalTiket = Ticket::sum('jumlah_tiket');
+    $totalNilai = Ticket::sum('total_harga');
+
+    return view('concertix', compact(
+        'events',
+        'transaksi',
+        'totalEvent',
+        'totalTiket',
+        'totalNilai'
+    ));
 }
 
    public function uploadProfil(Request $request)
 {
     $request->validate([
-        'foto_profil' => 'required|image|mimes:jpg,png|max:2048'
+        'foto_profil' => 'required|image|mimes:jpg,jpeg,png|max:2048'
     ]);
 
     $file = $request->file('foto_profil');
+
     $namaFile = time() . '.' . $file->getClientOriginalExtension();
 
     $file->move(public_path('images/profil'), $namaFile);
 
-    session(['foto_profil' => $namaFile]);
+    auth()->user()->update([
+        'foto_profil' => $namaFile
+    ]);
 
-    return redirect()->back()->with('success', 'Foto profil berhasil diupload!');
+    return back()->with(
+        'success',
+        'Foto profil berhasil diupload!'
+    );
 }
 
     // TAMBAH
@@ -55,11 +92,10 @@ class DashboardController extends Controller
             'harga' => $request->harga,
             'gambar' => $namaFile
         ]);
-
         return redirect()->back()->with('success', 'Event berhasil ditambahkan!');
     }
 
-    // UPDATE (INI YANG FIX BUG EDIT)
+    // UPDATE 
     public function update(Request $request, $id){
         $event = Event::find($id);
 

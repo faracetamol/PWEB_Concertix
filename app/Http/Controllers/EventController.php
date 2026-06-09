@@ -60,9 +60,8 @@ class EventController extends Controller
         'user_id' => auth()->id()
     ]);
 
-    return redirect()
-        ->route('events.index')
-        ->with('success', 'Event berhasil ditambahkan!');
+    return redirect('/')
+    ->with('success', 'Event berhasil ditambahkan!');
 }
 
     /**
@@ -115,20 +114,18 @@ class EventController extends Controller
 
     $event->save();
 
-    return redirect()
-        ->route('events.index')
+     return redirect('/')
         ->with('success', 'Event berhasil diupdate!');
 }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+  public function destroy(Event $event)
 {
     $event->delete();
 
-    return redirect()
-        ->route('events.index')
+    return redirect('/')
         ->with('success', 'Event berhasil dihapus!');
 }
 

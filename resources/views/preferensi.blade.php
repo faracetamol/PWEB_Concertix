@@ -1,93 +1,61 @@
+@php
+use Illuminate\Support\Facades\Cookie;
+@endphp
 <!DOCTYPE html>
 <html>
 <head>
     <title>Preferensi</title>
-
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<body>
-<script>
-if (document.cookie.includes('tema=dark')) {
-    document.body.classList.add('dark-mode');
-}
-</script>
-<div class="content">
+<body class="{{ Cookie::get('tema') == 'dark' ? 'dark-mode' : '' }}">
 
-    <h2>Pengaturan Preferensi</h2>
+@include('partials.navbar')
 
-    <form id="formPreferensi">
-
-        <label>Tema:</label>
-        <select name="tema" id="tema">
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-            <option value="system">System</option>
-        </select>
-
-        <br><br>
-
-        <label>Ukuran Font:</label>
-        <select name="font" id="font">
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-        </select>
-
-        <br><br>
-
-        <button type="button" onclick="simpanPreferensi()">
-            Simpan
-        </button>
-
-    </form>
-
-    <div id="status"></div>
-
+<div class="back-wrapper">
+    <a href="{{ url('/') }}" class="btn-kembali">
+        ← Kembali ke Dashboard
+    </a>
 </div>
-<script>
-async function simpanPreferensi() {
 
-    const tema = document.getElementById('tema').value;
-    const font = document.getElementById('font').value;
+<section class="content">
+    <div class="preferensi-card">
+        <h2>⚙️ Pengaturan Preferensi</h2>
 
-    try {
+        <form action="{{ route('preferensi.simpan') }}" method="POST">
+            @csrf
 
-        const response = await fetch('/simpan-preferensi', {
+            <div class="form-group">
+                <label>Tema</label>
+                <select name="tema">
+                    <option value="light"
+                        {{ session('tema') == 'light' ? 'selected' : '' }}>
+                        Light
+                    </option>
 
-            method: 'POST',
+                    <option value="dark"
+                        {{ session('tema') == 'dark' ? 'selected' : '' }}>
+                        Dark
+                    </option>
+                </select>
+            </div>
 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            },
+            <div class="form-group">
+                <label>Ukuran Font</label>
 
-            body: JSON.stringify({
-                tema: tema,
-                font: font
-            })
+                <select name="font">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </div>
 
-        });
+            <button type="submit" class="btn-simpan">
+                💾 Simpan Preferensi
+            </button>
+        </form>
+    </div>
+</section>
 
-        const data = await response.json();
-
-document.getElementById('status').innerHTML = data.message;
-
-if (tema === 'dark') {
-    document.body.classList.add('dark-mode');
-} else {
-    document.body.classList.remove('dark-mode');
-}
-
-    } catch(error) {
-
-        document.getElementById('status').innerHTML =
-            'Gagal menyimpan preferensi';
-
-        console.log(error);
-    }
-}
-</script>
 </body>
 </html>

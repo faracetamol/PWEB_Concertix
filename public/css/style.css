@@ -35,9 +35,9 @@ body {
 .cuaca-card {
     background: white;
     border-left: 6px solid #00008b;
-    padding: 15px;
+    padding: 80px;
     border-radius: 10px;
-    margin-top: 10px;
+    margin-top: 50px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
@@ -395,7 +395,7 @@ tr:nth-child(even) {
 ========================= */
 .preferensi-card{
     max-width:600px;
-    margin:30px auto;
+    margin:100px auto;
     background:white;
     padding:30px;
     border-radius:15px;
@@ -429,7 +429,7 @@ tr:nth-child(even) {
     width:100%;
     background:#0a1f8f;
     color:white;
-    padding:12px;
+    padding:88px;
     border:none;
     border-radius:8px;
     cursor:pointer;
@@ -510,11 +510,11 @@ html {
     background: #f5f6ff;
     padding: 12px;
     border-radius: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 50px;
 }
 
 .event-terdekat p {
-    margin: 4px 0;
+    margin: 60px 0;
 }
 
 

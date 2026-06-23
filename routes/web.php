@@ -20,17 +20,14 @@ use App\Http\Controllers\TicketController;
 
 Route::get('/', function () {
 
-    if (!auth()->check()) {
-        return redirect('/login');
-    }
-
-    if (trim(auth()->user()->role) == 'admin') {
+    // Jika admin sudah login, masuk dashboard admin
+    if (auth()->check() && trim(auth()->user()->role) == 'admin') {
         return app(DashboardController::class)->index(request());
     }
 
+    // Selain admin (termasuk belum login), tampilkan halaman pelanggan
     return redirect('/pelanggan');
-
-})->middleware('auth');
+});
 
 
 /*
@@ -107,22 +104,22 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
+// Bisa diakses tanpa login
+Route::get('/pelanggan', function () {
 
-    Route::get('/pelanggan', function () {
+    $events = Event::all();
 
-        $events = Event::all();
-
-        $tickets = Ticket::with('event')
+    $tickets = auth()->check()
+        ? Ticket::with('event')
             ->where('user_id', auth()->id())
-            ->get();
+            ->get()
+        : collect();
 
-        return view(
-            'pelanggan',
-            compact('events', 'tickets')
-        );
+    return view('pelanggan', compact('events', 'tickets'));
+});
 
-    });
+// Yang di bawah tetap harus login
+Route::middleware('auth')->group(function () {
 
     Route::view(
         '/profil-pelanggan',
@@ -143,7 +140,6 @@ Route::middleware('auth')->group(function () {
     })->name('tiket.saya');
 
 });
-
 
 /*
 |--------------------------------------------------------------------------

@@ -32,27 +32,33 @@ bg-white transition-all duration-300
         <img src="{{ asset('images/logo.png') }}" width="120">
     </div>
 
-   <div class="menu">
-    <button onclick="toggleDarkMode()" class="btn-dark">
-        Dark Mode
-    </button>
-
-    <a href="#dashboard">Dashboard</a>
-    <a href="#event">Daftar Event</a>
-    <a href="{{ route('tiket.saya') }}">Tiket Saya</a>
-    <a href="{{ route('profil.pelanggan') }}">Profil</a>
-    <a href="{{ url('/tentang') }}">Tentang</a>
-    <a href="{{ url('/kontak') }}">Kontak</a>
-    <a href="{{ url('/preferensi') }}">Preferensi</a>
-
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-
-        <button type="submit" class="btn-logout">
-            Logout
+    <div class="menu">
+        <button onclick="toggleDarkMode()" class="btn-dark">
+            Dark Mode
         </button>
-    </form>
-</div>
+
+        <a href="#dashboard">Dashboard</a>
+        <a href="#event">Daftar Event</a>
+        <a href="{{ url('/tentang') }}">Tentang</a>
+        <a href="{{ url('/kontak') }}">Kontak</a>
+        <a href="{{ url('/preferensi') }}">Preferensi</a>
+
+        @auth
+            <a href="{{ route('tiket.saya') }}">Tiket Saya</a>
+            <a href="{{ route('profil.pelanggan') }}">Profil</a>
+
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn-logout">
+                    Logout
+                </button>
+            </form>
+        @else
+            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Register</a>
+        @endauth
+
+    </div>
 </nav>
 
 <!-- HEADER -->
@@ -64,15 +70,15 @@ bg-white transition-all duration-300
 </header>
 
 <!-- HERO -->
-<div class="hero">
-    <h2>
-        Selamat Datang, {{ auth()->user()->name }} 👋
-    </h2>
-
-    <p>
-        Cari event terbaik dan pesan tiket dengan mudah.
-    </p>
-</div>
+<h2>
+    Selamat Datang,
+    @auth
+        {{ auth()->user()->name }}
+    @else
+        Guest
+    @endauth
+    👋
+</h2>
 
 <!-- CUACA -->
 <section class="content" id="cuaca">
@@ -125,6 +131,7 @@ bg-white transition-all duration-300
     <div class="container">
         @forelse($events as $event)
             <div class="card">
+
                 @if($event->gambar)
                     <img
                         src="{{ asset('images/' . $event->gambar) }}"
@@ -133,61 +140,82 @@ bg-white transition-all duration-300
                 @else
                     <img
                         src="{{ asset('images/logo.png') }}"
-                        class="card-img">
+                        class="card-img"
+                        alt="Logo">
                 @endif
 
                 <div class="card-body">
                     <h4>{{ $event->nama }}</h4>
+
                     <p>📍 {{ $event->lokasi }}</p>
+
                     <p>
                         📅
                         {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}
                     </p>
-                    <p>
-                        🎫 Stok: {{ $event->stok }}
-                    </p>
-                    <p>
-                        💰 Rp {{ number_format($event->harga) }}
-                    </p>
-                    <form method="POST"
-                          action="{{ route('tickets.store') }}">
 
-                        @csrf
+                    <p>🎫 Stok: {{ $event->stok }}</p>
 
-        <input type="hidden"
-           name="event_id"
-           value="{{ $event->id }}">
+                    <p>💰 Rp {{ number_format($event->harga) }}</p>
 
-    <label>Jumlah Tiket</label>
+                    @auth
+                        <form method="POST" action="{{ route('tickets.store') }}">
+                            @csrf
 
-    <input type="number"
-           name="jumlah_tiket"
-           min="1"
-           max="{{ $event->stok }}"
-           value="1"
-           required>
+                            <input
+                                type="hidden"
+                                name="event_id"
+                                value="{{ $event->id }}">
 
-           <br><br>
+                            <label>Jumlah Tiket</label>
 
-                        <button type="submit"
+                            <input
+                                type="number"
+                                name="jumlah_tiket"
+                                min="1"
+                                max="{{ $event->stok }}"
+                                value="1"
+                                required>
+
+                            <br><br>
+
+                            <button
+                                type="submit"
+                                style="
+                                    width:100%;
+                                    background:#0000aa;
+                                    color:white;
+                                    border:none;
+                                    padding:10px;
+                                    border-radius:5px;
+                                    cursor:pointer;
+                                ">
+                                Pesan Tiket
+                            </button>
+                        </form>
+                    @else
+                        <a
+                            href="{{ route('login') }}"
                             style="
-                            width:100%;
-                            background:#0000aa;
-                            color:white;
-                            border:none;
-                            padding:10px;
-                            border-radius:5px;
-                            cursor:pointer;">
-                            Pesan Tiket
-                        </button>
-                    </form>
+                                display:block;
+                                width:100%;
+                                text-align:center;
+                                background:#0000aa;
+                                color:white;
+                                padding:10px;
+                                border-radius:5px;
+                                text-decoration:none;
+                            ">
+                            Login untuk Pesan Tiket
+                        </a>
+                    @endauth
+
                 </div>
             </div>
 
         @empty
             <p>Belum ada event tersedia.</p>
         @endforelse
-
     </div>
 </section>
 
@@ -195,8 +223,13 @@ bg-white transition-all duration-300
     <aside class="sidebar">
         <h3>Informasi Akun</h3>
         <ul>
-            <li>Role : Pelanggan</li>
-            <li>Status : Aktif</li>
+            @auth
+<li>Role : {{ auth()->user()->role }}</li>
+<li>Status : Aktif</li>
+@else
+<li>Role : Guest</li>
+<li>Status : Belum Login</li>
+@endauth
         </ul>
     </aside>
 </main>
